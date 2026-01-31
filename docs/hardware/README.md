@@ -5,7 +5,7 @@ This section focuses on the physical components used in the system and their rol
 ### Components Overview
 
 #### 1. STM32 Microcontroller
-![STM32](hardware/component_images/STM32.png)
+![STM32](./STM32.png)
 
 The STM32 microcontroller is the core of the system.  
 It is responsible for:
@@ -20,7 +20,7 @@ All system logic runs on the STM32, making it the central control unit of the pr
 ---
 
 #### 2. Soil Moisture Sensor (Fork-Type)
-![Moisture Sensor](hardware/component_images/Moisture-sensor.png)
+![Moisture Sensor](./Moisture-sensor.png)
 
 The soil moisture sensor uses two probes inserted into the soil to measure electrical conductivity, which varies depending on water content.
 
@@ -35,7 +35,7 @@ This sensor was tested in both dry and wet soil conditions to validate accuracy.
 ---
 
 #### 3. Keypad
-![Keypad](hardware/component_images/keypad.png)
+![Keypad](./keypad.png)
 
 The keypad provides a simple user interface for interacting with the system.
 
@@ -49,7 +49,7 @@ The keypad is scanned by the STM32 using digital GPIO inputs.
 ---
 
 #### 4. Breadboard and Connecting Wires
-![Breadboard and Wires](hardware/component_images/BreadBoard-wires.png)
+![Breadboard and Wires](./BreadBoard-wires.png)
 
 The breadboard and jumper wires were used to:
 - Assemble the circuit without soldering
