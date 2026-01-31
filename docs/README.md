@@ -4,7 +4,7 @@ this section focuses on the physical components used in the system and their rol
 ###Components Overview
 
 #### 1. STM32 Microcontroller
-![STM32](docs/hardware/STM32.png)
+![STM32](component_images/STM32.png)
 
 The STM32 microcontroller is the core of the system.  
 It is responsible for:
