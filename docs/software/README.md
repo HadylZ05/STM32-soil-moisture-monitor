@@ -42,7 +42,7 @@ The software is organized around the following modules:
 The project configuration was created using **STM32CubeMX** via the `.ioc` file.  
 This file defines all peripheral settings and pin assignments before code generation.
 
-![STM32CubeMX Configuration](./ioc_configuration.png)
+![STM32CubeMX Configuration](./ioc-configuration.png)
 
 ## Configuration Highlights
 
@@ -68,7 +68,7 @@ The STM32CubeMX `.ioc` file ensures:
 
 ---
 
-## 🔁 Main Program Flow
+##  Main Program Flow
 
 ```c
 int main(void)
@@ -151,9 +151,114 @@ Raw ADC values are converted into a percentage scale to make the data more intui
 const uint32_t wet_raw = 300;
 const uint32_t dry_raw = 3500;
 ```
+### Mapping Function
+
+The raw ADC value is converted into a percentage representing soil moisture.
+
+```c
+uint32_t map_moisture(uint32_t raw)
+{
+    if (raw <= wet_raw) return 100;
+    if (raw >= dry_raw) return 0;
+
+    return 100 - ((raw - wet_raw) * 100) / (dry_raw - wet_raw);
+}
+```
+**Output Range**
+-0% → Dry soil
+-100% → Wet soil
 
 
+##  LCD Handling (I2C)
 
+The LCD is controlled using the **I2C protocol** to minimize wiring complexity and reduce GPIO usage.
+
+### LCD Interface Functions
+```c
+void lcd_send_cmd(char cmd);
+void lcd_send_data(char data);
+void lcd_send_string(char *str);
+void lcd_init(void);
+```
+### Advantages
+
+Cleaner hardware design
+
+Reliable communication
+
+Modular and reusable display driver
+
+## ⌨️ Keypad Input Handling
+
+A matrix keypad enables interactive control of the system, allowing the user to adjust display modes and scaling factors in real time.
+
+### Keypad Interface Function
+char read_keypad(void);
+
+### Supported Controls
+- **\*** key → Enter scaling mode  
+- **0–9 keys** → Set scaling factor  
+- **# key** → Reset scale  
+
+Keypad scanning runs continuously inside the main loop to ensure real-time responsiveness.
+
+---
+
+##  Display Modes
+
+The system supports **three display modes**:
+
+- **Mode 0** – Raw ADC value **and** moisture percentage  
+- **Mode 1** – Raw ADC value only  
+- **Mode 2** – Moisture percentage only  
+##  Display Mode Control
+
+### Display Mode Variable
+
+```c
+static uint8_t display_mode = 0;
+```
+##  Main Control Loop Logic
+
+Inside the infinite loop, the system performs the following operations continuously:
+
+- Reads the **ADC value** from the soil moisture sensor  
+- Maps the raw value to a **moisture percentage**  
+- Reads **keypad input** for user interaction  
+- Updates the **display mode** or **scaling factor** based on user input  
+- Refreshes the **LCD output** in real time  
+
+This logic enables **continuous monitoring**, **interactive control**, and **stable real-time operation** of the system.
+
+## Testing & Validation
+
+The system was tested under multiple real-world conditions to verify accuracy and stability:
+
+### Test Conditions
+- Dry soil  
+- Moist soil  
+- Sensor wrapped in a wet towel  
+
+### Results
+- ADC values **decreased as soil moisture increased**
+- Moisture **percentage output updated in real time**
+- LCD display and keypad **remained fully responsive**
+- No runtime errors or system instability were observed during testing
+
+##  Error Handling
+
+The system includes a basic but effective error handling mechanism to ensure safe operation in case of critical failures.
+
+```c
+void Error_Handler(void)
+{
+    __disable_irq();
+    while (1)
+    {
+        // System halted on error
+    }
+}
+```
 
 
 
