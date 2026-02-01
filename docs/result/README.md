@@ -77,7 +77,7 @@ This image shows a close-up of the LCD displaying live system data.
 - Display mode and scaling factor are clearly indicated
 - No corrupted characters or unstable behavior observed
 
-![LCD Close-Up Output](./result_images/lcd_closeup.jpg)
+![LCD Close-Up Output](./LCD-output.png)
 
 ---
 
@@ -92,7 +92,7 @@ This image demonstrates the complete system operating together:
 
 This confirms successful integration of hardware and software components.
 
-![Full System with Keypad and LCD](./result_images/full_system.jpg)
+![Full System with Keypad and LCD](./FullSystem.png)
 
 ---
 
