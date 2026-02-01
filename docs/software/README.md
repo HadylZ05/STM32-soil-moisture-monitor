@@ -188,7 +188,7 @@ Reliable communication
 
 Modular and reusable display driver
 
-## ⌨️ Keypad Input Handling
+##  Keypad Input Handling
 
 A matrix keypad enables interactive control of the system, allowing the user to adjust display modes and scaling factors in real time.
 
